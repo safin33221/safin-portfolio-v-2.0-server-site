@@ -2,6 +2,7 @@ import http, { Server } from "http";
 import { prisma } from "./config/db.config";
 import app from "./app";
 import dotenv from 'dotenv'
+import { seedAdmin } from "./utils/seedAdmin";
 dotenv.config()
 let server: Server
 
@@ -31,3 +32,4 @@ const startServer = async () => {
 
 
 startServer()
+seedAdmin()
