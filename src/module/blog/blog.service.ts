@@ -9,13 +9,23 @@ const createBlog = async (payload: Prisma.BlogCreateInput): Promise<Blog> => {
 }
 
 const getAllBlog = async () => {
-    const res = await prisma.blog.findMany()
+    const res = await prisma.blog.findMany({
+        orderBy: {
+            createdAt: "desc"
+        }
+    })
     return res
 }
 const updateBlog = async (id: number, payload: Prisma.BlogCreateInput): Promise<Blog> => {
     const res = await prisma.blog.update({
         where: { id },
         data: payload
+    })
+    return res
+}
+const deleteBlog = async (id: number) => {
+    const res = await prisma.blog.delete({
+        where: { id }
     })
     return res
 }
@@ -41,5 +51,6 @@ export const blogService = {
     createBlog,
     getAllBlog,
     getBlogById,
-    updateBlog
+    updateBlog,
+    deleteBlog
 }
