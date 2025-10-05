@@ -5,5 +5,6 @@ const router = Router()
 
 router.post('/', blogController.createBlog)
 router.get('/', blogController.getAllBlog)
+router.get('/:id', blogController.getBlogById)
 
 export const BlogRoute = router

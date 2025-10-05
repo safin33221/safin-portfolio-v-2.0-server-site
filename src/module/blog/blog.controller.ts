@@ -37,8 +37,28 @@ const getAllBlog = async (req: Request, res: Response, next: NextFunction) => {
         })
     }
 }
+const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = req.params.id
+        const result = await blogService.getBlogById(Number(id))
+        return res.status(200).json({
+            success: false,
+            message: "Blog retrieved Successful",
+            data: result
+
+        })
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "Blog get  failed",
+            data: error.message
+
+        })
+    }
+}
 
 export const blogController = {
     createBlog,
-    getAllBlog
+    getAllBlog,
+    getBlogById
 }
