@@ -12,7 +12,6 @@ const login = async (payload: { email: string, password: string }) => {
     if (!isCorrectPassword) {
         throw new Error("Invalid password")
     }
-    // You may want to return the user or a token here
     return user
 }
 

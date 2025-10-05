@@ -3,7 +3,7 @@ import { authService } from "./auth.service";
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
 
-    // console.log(req.body);
+
     try {
         const result = await authService.login(req.body)
         return res.status(200).json({
