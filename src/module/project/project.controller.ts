@@ -51,10 +51,29 @@ const deleteProject = async (req: Request, res: Response, next: NextFunction) =>
     }
 };
 
+const updateProject = async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id
+    try {
+        const result = await projectService.updateProject(Number(id),req.body);
+        return res.status(201).json({
+            success: true,
+            message: "Project Update successfully",
+            data: result,
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to Update Project",
+            error: error.message,
+        });
+    }
+};
+
 
 
 export const projectController = {
     uploadProject,
     getAllProject,
-    deleteProject
+    deleteProject,
+    updateProject
 }
