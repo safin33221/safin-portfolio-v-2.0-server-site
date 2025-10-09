@@ -17,8 +17,17 @@ const getAllProject = async () => {
     })
     return result
 }
+const deleteProject = async (id: number) => {
+    const result = await prisma.project.delete({
+        where: {
+            id: id
+        }
+    })
+    return result
+}
 
 export const projectService = {
     uploadProject,
-    getAllProject
+    getAllProject,
+    deleteProject
 }

@@ -33,10 +33,28 @@ const getAllProject = async (req: Request, res: Response, next: NextFunction) =>
         });
     }
 };
+const deleteProject = async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id
+    try {
+        const result = await projectService.deleteProject(Number(id));
+        return res.status(201).json({
+            success: true,
+            message: "Project delete successfully",
+            data: null,
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to delete Project",
+            error: error.message,
+        });
+    }
+};
 
 
 
 export const projectController = {
     uploadProject,
-    getAllProject
+    getAllProject,
+    deleteProject
 }
