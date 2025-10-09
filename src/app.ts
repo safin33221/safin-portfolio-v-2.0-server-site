@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { AuthRoute } from './module/auth/auth.route'
 import { BlogRoute } from './module/blog/blog.route'
+import { ProjectRouter } from './module/project/project.route'
 
 const app = express()
 app.use(express.json())
@@ -9,6 +10,7 @@ app.use(cors())
 
 app.use("/api/v1/auth", AuthRoute)
 app.use("/api/v1/blog", BlogRoute)
+app.use("/api/v1/project", ProjectRouter)
 
 app.get("/", (req, res) => {
     res.json({

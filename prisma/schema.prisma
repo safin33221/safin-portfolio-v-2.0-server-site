@@ -43,3 +43,18 @@ model Blog {
   User User[]
 }
 
+model Project {
+  id                     Int       @id @default(autoincrement())
+  name                   String
+  description            String
+  image                  String
+  source_code_link       String
+  live_page_link         String
+
+  tags                   String[]   // ✅ stored as array, no separate Tag model
+  challenges_faced        String[]   // stored as array of text
+  potential_improvements  String[]   // stored as array of text
+
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+}
