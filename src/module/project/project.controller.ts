@@ -17,7 +17,26 @@ const uploadProject = async (req: Request, res: Response, next: NextFunction) =>
         });
     }
 };
+const getAllProject = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const result = await projectService.getAllProject();
+        return res.status(201).json({
+            success: true,
+            message: "Project retrieve successfully",
+            data: result,
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to retrieve Project",
+            error: error.message,
+        });
+    }
+};
+
+
 
 export const projectController = {
-    uploadProject
+    uploadProject,
+    getAllProject
 }

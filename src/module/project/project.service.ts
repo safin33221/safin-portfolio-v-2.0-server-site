@@ -8,6 +8,17 @@ const uploadProject = async (payload: Prisma.ProjectCreateInput) => {
     return result
 }
 
+
+const getAllProject = async () => {
+    const result = await prisma.project.findMany({
+        orderBy: {
+            createdAt: "desc"
+        }
+    })
+    return result
+}
+
 export const projectService = {
-    uploadProject
+    uploadProject,
+    getAllProject
 }
