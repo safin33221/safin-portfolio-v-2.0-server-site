@@ -1,7 +1,8 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, Project } from "@prisma/client";
 import { prisma } from "../../config/db.config";
 
-const uploadProject = async (payload: Prisma.ProjectCreateInput) => {
+const uploadProject = async (payload: Prisma.ProjectCreateInput): Promise<Project> => {
+
     const result = await prisma.project.create({
         data: payload
     })
