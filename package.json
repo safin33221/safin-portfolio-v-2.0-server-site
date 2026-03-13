@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build":"tsc",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +20,8 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "http": "0.0.1-security",
-    "mongoose": "^8.19.1"
+    "mongoose": "^8.19.1",
+    "react-quill": "^2.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

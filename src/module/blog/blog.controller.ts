@@ -37,8 +37,21 @@ const getAllBlog = async (req: Request, res: Response, next: NextFunction) => {
 
 const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log({ id: req.params.id });
     const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid blog id",
+      });
+    }
     const result = await blogService.getBlogById(id);
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Blog not found",
+      });
+    }
     return res.status(200).json({
       success: true,
       message: "Blog retrieved successfully",
@@ -56,7 +69,19 @@ const getBlogById = async (req: Request, res: Response, next: NextFunction) => {
 const updateBlog = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid blog id",
+      });
+    }
     const result = await blogService.updateBlog(id, req.body);
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Blog not found",
+      });
+    }
     return res.status(200).json({
       success: true,
       message: "Blog updated successfully",
@@ -74,7 +99,19 @@ const updateBlog = async (req: Request, res: Response, next: NextFunction) => {
 const deleteBlog = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid blog id",
+      });
+    }
     const result = await blogService.deleteBlog(id);
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Blog not found",
+      });
+    }
     return res.status(200).json({
       success: true,
       message: "Blog deleted successfully",

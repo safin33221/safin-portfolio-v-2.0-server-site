@@ -20,7 +20,7 @@ model User {
   password  String
   avatar    String?
   bio       String?
-  role      String   @default("admin") // only admin exists
+  role      String   @default("admin") 
   blogs     Blog[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -49,9 +49,9 @@ model Project {
   source_code_link String
   live_page_link   String
 
-  tags                   String[] // ✅ stored as array, no separate Tag model
-  challenges_faced       String[] // stored as array of text
-  potential_improvements String[] // stored as array of text
+  tags                   String[] 
+  challenges_faced       String[] 
+  potential_improvements String[] 
   display                Boolean  @default(true)
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt

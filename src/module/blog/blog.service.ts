@@ -16,21 +16,39 @@ const getAllBlog = async () => {
     })
     return res
 }
-const updateBlog = async (id: number, payload: Prisma.BlogCreateInput): Promise<Blog> => {
+const updateBlog = async (id: number, payload: Prisma.BlogCreateInput): Promise<Blog | null> => {
+    const existing = await prisma.blog.findUnique({
+        where: { id }
+    })
+    if (!existing) {
+        return null
+    }
     const res = await prisma.blog.update({
         where: { id },
         data: payload
     })
     return res
 }
-const deleteBlog = async (id: number) => {
+const deleteBlog = async (id: number): Promise<Blog | null> => {
+    const existing = await prisma.blog.findUnique({
+        where: { id }
+    })
+    if (!existing) {
+        return null
+    }
     const res = await prisma.blog.delete({
         where: { id }
     })
     return res
 }
-const getBlogById = async (id: number) => {
+const getBlogById = async (id: number): Promise<Blog | null> => {
     return await prisma.$transaction(async (tx) => {
+        const existing = await tx.blog.findUnique({
+            where: { id }
+        })
+        if (!existing) {
+            return null
+        }
         await tx.blog.update({
             where: { id },
             data: {

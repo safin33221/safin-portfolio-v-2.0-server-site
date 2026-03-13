@@ -8,7 +8,7 @@ const getStat = async (req: Request, res: Response, next: NextFunction) => {
         res.status(500).json({
             success: false,
             message: "Failed to create Project",
-            date: result
+            data: result
         });
     } catch (error: any) {
         res.status(500).json({
