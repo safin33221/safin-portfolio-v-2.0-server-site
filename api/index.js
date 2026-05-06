@@ -1,7 +1,6 @@
-import type { Request, Response } from "express";
-import app from "../src/app";
-import { prisma } from "../src/config/db.config";
-import { seedAdmin } from "../src/utils/seedAdmin";
+const app = require("../dist/app").default;
+const { prisma } = require("../dist/config/db.config");
+const { seedAdmin } = require("../dist/utils/seedAdmin");
 
 let isInitialized = false;
 
@@ -24,7 +23,7 @@ const initialize = async () => {
   isInitialized = true;
 };
 
-export default async function handler(req: Request, res: Response) {
+module.exports = async function handler(req, res) {
   await initialize();
   return app(req, res);
-}
+};
