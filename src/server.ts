@@ -1,35 +1,44 @@
 import http, { Server } from "http";
-import { prisma } from "./config/db.config";
 import app from "./app";
-import dotenv from 'dotenv'
+import { prisma } from "./config/db.config";
 import { seedAdmin } from "./utils/seedAdmin";
-dotenv.config()
-let server: Server
+
+let server: Server;
+
+const shouldSeedAdmin = () =>
+  Boolean(
+    process.env.ADMIN_EMAIL &&
+      process.env.ADMIN_PASSWORD &&
+      process.env.ADMIN_NAME
+  );
 
 async function connectToDB() {
-    try {
-        await prisma.$connect()
-        console.log("DB connection successfully");
-    } catch (error) {
-        console.log("DB connection failed");
-        process.exit(1)
-    }
-
+  try {
+    await prisma.$connect();
+    console.log("DB connected successfully");
+  } catch (error) {
+    console.error("DB connection failed", error);
+    process.exit(1);
+  }
 }
+
 const startServer = async () => {
-    try {
-        await connectToDB()
-        server = http.createServer(app)
+  try {
+    await connectToDB();
 
-        server.listen(process.env.PORT, () => {
-            console.log(`🚀 Server is running on port ${process.env.PORT}}`);
-        })
-    } catch (error) {
-        console.error("❌ Error during server startup:", error);
-        process.exit(1);
+    if (shouldSeedAdmin()) {
+      await seedAdmin();
     }
-}
 
+    server = http.createServer(app);
 
-startServer()
-seedAdmin()
+    server.listen(process.env.PORT, () => {
+      console.log(`Server is running on port ${process.env.PORT}`);
+    });
+  } catch (error) {
+    console.error("Error during server startup:", error);
+    process.exit(1);
+  }
+};
+
+startServer();
